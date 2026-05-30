@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: processing-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: serviceAccount.annotations.azure\.workload\.identity/client-id
+          value: "7da70023-fd3f-4bf1-8900-4a5606aa5963"
+        - name: AZURE_STORAGE_BLOB_URL
+          value: "https://docuflowaistracc.blob.core.windows.net"
+        - name: AZURE_STORAGE_CONTAINER
+          value: "doc-uploads"
+        - name: env.SERVICEBUS_FQDN
+          value:
+        - name: env.SERVICEBUS_QUEUE
+          value:
+        - name: AZURE_OPENAI_ENDPOINT
+          value: "https://docuflow-ai.openai.azure.com/"
+        - name: AZURE_OPENAI_DEPLOYMENT
+          value: "gpt-5-mini"
+        - name: STORAGE_SERVICE_URL
+          value:
+    repoURL: https://github.com/srikanthhg/docuflow-ai.git
+    targetRevision: main
+    path: charts/processing-worker
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

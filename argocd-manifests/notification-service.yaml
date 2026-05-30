@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: notification-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: serviceAccount.annotations.azure\.workload\.identity/client-id
+          value: "7da70023-fd3f-4bf1-8900-4a5606aa5963"
+        - name: env.SERVICEBUS_FQDN
+          value:
+        - name: env.SERVICEBUS_QUEUE
+          value:
+        - name: NOTIFY_WEBHOOK_URL
+          value:
+    repoURL: https://github.com/srikanthhg/docuflow-ai.git
+    targetRevision: main
+    path: charts/notification-service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

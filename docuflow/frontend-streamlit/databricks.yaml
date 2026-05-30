@@ -1,0 +1,8 @@
+bundle:
+  name: docuflow-ai
+
+resources:
+  apps:
+    docuflow-ai:
+      name: docuflow-ai
+      source_code_path: .

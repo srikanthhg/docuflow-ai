@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: query-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: serviceAccount.annotations.azure\.workload\.identity/client-id
+          value: "7da70023-fd3f-4bf1-8900-4a5606aa5963"
+        - name: DATABRICKS_SQL_HOST
+          value: ""
+        - name: DATABRICKS_HTTP_PATH
+          value: ""
+        - name: DATABRICKS_RESOURCE_ID
+          value: ""
+    repoURL: https://github.com/srikanthhg/docuflow-ai.git
+    targetRevision: main
+    path: charts/query-service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

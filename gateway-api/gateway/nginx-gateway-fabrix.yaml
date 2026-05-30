@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-gateway-fabric
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: Statefulset
+      jsonPointers:
+        - /spec/replicas
+  source:
+    repoURL: oci://ghcr.io/nginx/charts/nginx-gateway-fabric
+    chart: nginx-gateway-fabric
+    targetRevision: 2.6.3
+    helm:
+      values: |
+        nginxGateway:
+          gatewayClassName: nginx
+          autoscaling:
+            enabled: true
+            minReplicas: 1
+            maxReplicas: 5
+            targetCPUUtilizationPercentage: 50
+            targetMemoryUtilizationPercentage: 50
+            behavior: {}
+        nginx:
+          autoscaling:
+            enabled: true
+            minReplicas: 1
+            maxReplicas: 5
+            targetCPUUtilizationPercentage: 50
+            targetMemoryUtilizationPercentage: 50
+            behavior: {}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true # Better for CRDs

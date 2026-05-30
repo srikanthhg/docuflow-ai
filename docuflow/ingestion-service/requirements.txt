@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+azure-identity
+azure-storage-blob
+azure-servicebus
+python-multipart
+pydantic
+aiohttp

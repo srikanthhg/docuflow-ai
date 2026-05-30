@@ -1,0 +1,33 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: ai-gateway
+  namespace: default
+spec:
+  gatewayClassName: nginx
+  infrastructure:
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      service.beta.kubernetes.io/azure-load-balancer-ipv4: ""
+  listeners:
+    # - name: https-listener
+    #   protocol: HTTPS
+    #   port: 443
+    #   hostname: "*.docuflow.internal"
+    #   allowedRoutes:
+    #     namespaces:
+    #       from: Same # or All or Selector
+
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: "*.docuflow.internal"
+      allowedRoutes:
+        namespaces:
+          from: Same # or All or Selector
+      # tls:
+      #   mode: Terminate
+      #   certificateRefs:
+      #     - name: chat-app-tls
+      #       kind: Secret
+      #       group: ""
