@@ -17,6 +17,8 @@ DB_HTTP_PATH = os.getenv("DATABRICKS_HTTP_PATH")
 
 # Azure Databricks Resource ID
 DATABRICKS_RESOURCE_ID = os.getenv("DATABRICKS_RESOURCE_ID")
+DATABRICKS_CATALOG = os.getenv("DATABRICKS_CATALOG", "docflow")
+DATABRICKS_SCHEMA = os.getenv("DATABRICKS_SCHEMA", "extraction")
 
 credential = DefaultAzureCredential()
 
@@ -28,7 +30,10 @@ def get_db_connection():
     return sql.connect(
         server_hostname=DB_HOST,
         http_path=DB_HTTP_PATH,
-        access_token=token
+        access_token=token,
+        catalog=DATABRICKS_CATALOG,
+        schema=DATABRICKS_SCHEMA,
+        _user_agent_entry="docuflow-query-service/1.0"
     )
 
 @app.get("/api/v1/query/{doc_id}")

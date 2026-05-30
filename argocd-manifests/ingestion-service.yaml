@@ -15,9 +15,9 @@ spec:
         - name: env.AZURE_STORAGE_CONTAINER
           value: "doc-uploads"
         - name: env.SERVICEBUS_FQDN
-          value: ""
+          value: "docuflow-sb-namespace.servicebus.windows.net"
         - name: env.SERVICEBUS_QUEUE
-          value: ""
+          value: "docuflow-queue"
     repoURL: https://github.com/srikanthhg/docuflow-ai.git
     targetRevision: main
     path: charts/ingestion-service

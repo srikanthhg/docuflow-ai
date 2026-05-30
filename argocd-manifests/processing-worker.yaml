@@ -15,15 +15,15 @@ spec:
         - name: AZURE_STORAGE_CONTAINER
           value: "doc-uploads"
         - name: env.SERVICEBUS_FQDN
-          value:
+          value: "docuflow-sb-namespace.servicebus.windows.net"
         - name: env.SERVICEBUS_QUEUE
-          value:
+          value: "docuflow-queue"
         - name: AZURE_OPENAI_ENDPOINT
           value: "https://docuflow-ai.openai.azure.com/"
         - name: AZURE_OPENAI_DEPLOYMENT
           value: "gpt-5-mini"
         - name: STORAGE_SERVICE_URL
-          value:
+          value: "http://storage-service:8000/api/v1/storage/documents"
     repoURL: https://github.com/srikanthhg/docuflow-ai.git
     targetRevision: main
     path: charts/processing-worker

@@ -35,7 +35,9 @@ serviceAccount:
 env:
   DATABRICKS_SQL_HOST: "<workspace-id>.azuredatabricks.net"
   DATABRICKS_HTTP_PATH: "/sql/1.0/warehouses/<warehouse-id>"
-  DATABRICKS_RESOURCE_ID: "<databricks-resource-id>"
+  DATABRICKS_RESOURCE_ID: ""
+  DATABRICKS_CATALOG: "docflow"
+  DATABRICKS_SCHEMA: "extraction"
 
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/

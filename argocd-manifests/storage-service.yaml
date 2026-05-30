@@ -11,11 +11,11 @@ spec:
         - name: serviceAccount.annotations.azure\.workload\.identity/client-id
           value: "7da70023-fd3f-4bf1-8900-4a5606aa5963"
         - name: DATABRICKS_SQL_HOST
-          value: ""
+          value: "adb-7405609657332208.8.azuredatabricks.net"
         - name: DATABRICKS_HTTP_PATH
-          value: ""
+          value: "/sql/1.0/warehouses/2f58064072a477d3"
         - name: DATABRICKS_RESOURCE_ID
-          value: ""
+          value: "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
     repoURL: https://github.com/srikanthhg/docuflow-ai.git
     targetRevision: main
     path: charts/storage-service
