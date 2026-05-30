@@ -35,8 +35,8 @@ serviceAccount:
 env:
   AZURE_STORAGE_BLOB_URL: "https://<storage>.blob.core.windows.net"
   AZURE_STORAGE_CONTAINER: "doc-uploads"
-  SERVICEBUS_FQDN: "<sb-namespace>.servicebus.windows.net"
-  SERVICEBUS_QUEUE: "doc-ingest-queue"
+  SERVICEBUS_FQDN: ""
+  SERVICEBUS_QUEUE: ""
   AZURE_OPENAI_ENDPOINT: "https://<aoai>.openai.azure.com/"
   AZURE_OPENAI_DEPLOYMENT: "gpt-5-mini"
   STORAGE_SERVICE_URL: "http://storage-service:8000/api/v1/storage/documents"
