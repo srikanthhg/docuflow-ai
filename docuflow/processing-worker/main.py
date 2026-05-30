@@ -127,35 +127,38 @@ async def process_message(payload: dict):
     logger.info(f"Stored results for {doc_id}")
 
 async def run_worker():
-    async with ServiceBusClient(
-        fully_qualified_namespace=SB_FQDN,
-        credential=cred
-    ) as client:
-
-        receiver = client.get_queue_receiver(
-            queue_name=SB_QUEUE,
-            max_wait_time=30
-        )
-
-        async with receiver:
-            async for msg in receiver:
-                try:
-                    body = b"".join([
-                        b for b in msg.body
-                    ]).decode("utf-8")
-
-                    payload = json.loads(body)
-
-                    await process_message(payload)
-
-                    await receiver.complete_message(msg)
-
-                    logger.info("Message completed")
-
-                except Exception as e:
-                    logger.exception(f"Worker failed: {e}")
-
-                    await receiver.abandon_message(msg)
-
+    """Continuous worker loop with proper error handling"""
+    logger.info("🚀 Starting processing worker...")
+    
+    while True:  # ← Infinite loop: worker never exits
+        try:
+            async with ServiceBusClient(SB_FQDN, credential=cred) as client:
+                # max_wait_time=30: wait up to 30s for a message before retrying
+                async with client.get_queue_receiver(
+                    SB_QUEUE, 
+                    max_wait_time=30  # ← Reasonable wait time
+                ) as receiver:
+                    logger.info(f"✅ Connected to queue: {SB_QUEUE}")
+                    
+                    # Process messages as they arrive
+                    async for message in receiver:
+                        try:
+                            logger.info(f"📥 Received message: {message.message_id}")
+                            await process_message(str(message))
+                            await receiver.complete_message(message)
+                            logger.info(f"✅ Processed message: {message.message_id}")
+                        except Exception as e:
+                            logger.error(f"❌ Failed to process message: {e}")
+                            # Dead-letter on failure to avoid infinite retry loop
+                            await receiver.dead_letter_message(
+                                message, 
+                                reason="processing_failed",
+                                error_description=str(e)
+                            )
+                            
+        except Exception as e:
+            # Log connection errors and retry after delay
+            logger.error(f"❌ Service Bus connection error: {e}. Retrying in 10s...")
+            await asyncio.sleep(10)  # ← Backoff before reconnect
 if __name__ == "__main__":
     asyncio.run(run_worker())
