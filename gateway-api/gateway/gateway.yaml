@@ -7,8 +7,8 @@ spec:
   gatewayClassName: nginx
   infrastructure:
     annotations:
-      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-      service.beta.kubernetes.io/azure-load-balancer-ipv4: ""
+      # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      # service.beta.kubernetes.io/azure-load-balancer-ipv4: ""
   listeners:
     # - name: https-listener
     #   protocol: HTTPS
