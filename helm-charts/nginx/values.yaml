@@ -96,9 +96,9 @@ httpRoute:
     - path:
         type: PathPrefix
         value: /
-    backendRefs:
-    - name: helm-charts-nginx
-      port: 80
+    # backendRefs:
+    # - name: helm-charts-nginx
+    #   port: 80
   #   filters:
   #   - type: RequestHeaderModifier
   #     requestHeaderModifier:
