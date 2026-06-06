@@ -83,12 +83,15 @@ httpRoute:
   annotations: {}
   # Which Gateways this Route is attached to.
   parentRefs:
+  - name: ai-gateway-private
+    sectionName: http
+    # namespace: default
   - name: ai-gateway
     sectionName: http
     # namespace: default
   # Hostnames matching HTTP header.
   hostnames:
-  # - nginx.skanth.local
+  - nginx.skanth.local
   - nginx.skanth307.shop
   # List of rules and filters applied.
   rules:
@@ -96,9 +99,7 @@ httpRoute:
     - path:
         type: PathPrefix
         value: /
-    # backendRefs:
-    # - name: helm-charts-nginx
-    #   port: 80
+
   #   filters:
   #   - type: RequestHeaderModifier
   #     requestHeaderModifier:
