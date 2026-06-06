@@ -85,7 +85,7 @@ httpRoute:
   parentRefs:
   - name: ai-gateway
     sectionName: http
-    namespace: default
+    # namespace: default
   # Hostnames matching HTTP header.
   hostnames:
   # - nginx.skanth.local
