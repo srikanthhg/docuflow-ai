@@ -78,7 +78,7 @@ ingress:
 # (see: https://gateway-api.sigs.k8s.io/guides/)
 httpRoute:
   # HTTPRoute enabled.
-  enabled: false
+  enabled: true
   # HTTPRoute annotations.
   annotations: {}
   # Which Gateways this Route is attached to.
@@ -88,7 +88,8 @@ httpRoute:
     # namespace: default
   # Hostnames matching HTTP header.
   hostnames:
-  - nginx.skanth.local
+  # - nginx.skanth.local
+  - nginx.skanth307.shop
   # List of rules and filters applied.
   rules:
   - matches:
