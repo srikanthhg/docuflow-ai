@@ -91,7 +91,7 @@ httpRoute:
     # namespace: default
   # Hostnames matching HTTP header.
   hostnames:
-  - nginx.skanth.local
+  - nginx.skanth.test
   - nginx.skanth307.shop
   # List of rules and filters applied.
   rules:

@@ -1,2 +1,5 @@
 kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.0/standard-install.yaml
 
+kubectl run curl-test --image=curlimages/curl --rm -it --restart=Never -- curl -v http://nginx.skanth.test
+
+curl -v http://172.19.4.8 -H "Host: nginx.skanth.test"
