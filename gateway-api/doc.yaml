@@ -3,3 +3,15 @@ kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/re
 kubectl run curl-test --image=curlimages/curl --rm -it --restart=Never -- curl -v http://nginx.skanth.test
 
 curl -v http://172.19.4.8 -H "Host: nginx.skanth.test"
+
+az network vnet subnet show   --name subnet-3   --vnet-name myVNet   --resource-group myRG   --query "privateLinkServiceNetworkPolicies"
+
+
+
+install gateway API crds --> standard-install.yaml
+
+install nginx gateway fabix controller --> nginx-gateway-fabrix.yaml  (gateway classname also we are providing here)
+
+install gateway --> gateway.yaml
+
+http route --> it is in helm chart

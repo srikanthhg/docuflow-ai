@@ -1,0 +1,123 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ha-proxy
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: StatefulSet
+      jsonPointers:
+        - /spec/replicas
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: haproxy
+    targetRevision: 4.0.7
+    helm:
+      values: |
+        replicaCount: 2
+
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          
+        pdb:
+          minAvailable: 1
+
+        configuration: |
+          global
+            log stdout format raw local0
+            maxconn 1024
+          defaults
+            mode tcp # added
+            log global
+            retries 3 # added
+            timeout client 5m
+            timeout connect 10s
+            timeout server 5m
+            option tcplog    # added
+          frontend postgres
+            bind *:5432
+            default_backend postgres_backend
+          backend postgres_backend
+            mode tcp # added
+            option tcp-check # added
+            default-server inter 5s fall 3 rise 2 # added
+            server postgres your-server.private.postgres.database.azure.com:5432 check
+        
+        # httpRoute:
+        #   ## @param httpRoute.enabled Enable HTTPRoute generation for HAProxy
+        #   ##
+        #   enabled: false
+        #   ## @param httpRoute.annotations Additional annotations for the HTTPRoute resource
+        #   ##
+        #   annotations: {}
+        #   ## @param httpRoute.labels Additional labels for the HTTPRoute resource
+        #   ##
+        #   labels: {}
+        #   ## @param httpRoute.parentRefs Gateways the HTTPRoute is attached to. If unspecified, it'll be attached to Gateway named 'gateway' in the same namespace.
+        #   ## e.g:
+        #   ## parentRefs:
+        #   ##   - name: my-gateway
+        #   ##     sectionName: http
+        #   ##     namespace: default
+        #   ##
+        #   parentRefs: []
+        #   ## @param httpRoute.hostnames [array] List of hostnames matching HTTP header
+        #   ##
+        #   hostnames:
+        #     - haproxy.local
+        #   ## @param httpRoute.matches [array] List of match rules applied to the HTTPRoute for the default svc backend reference
+        #   ##
+        #   matches:
+        #     - path:
+        #         type: PathPrefix
+        #         value: /
+        #   ## @param httpRoute.filters List of filter rules applied to the HTTPRoute for the default svc backend reference
+        #   ##
+        #   filters: []
+        #   ## @param httpRoute.extraRules List of extra rules applied to the HTTPRoute
+        #   ## e.g:
+        #   ## extraRules:
+        #   ##   - matches:
+        #   ##       - path:
+        #   ##           type: PathPrefix
+        #   ##           value: /login
+        #   ##     filters:
+        #   ##       - type: RequestHeaderModifier
+        #   ##         requestHeaderModifier:
+        #   ##           set:
+        #   ##             - name: My-Overwrite-Header
+        #   ##               value: this-is-the-only-value
+        #   ##           remove:
+        #   ##             - User-Agent
+        #   ##     backendRefs:
+        #   ##       - name: haproxy
+        #   ##         port: 80
+        #   ##
+        #   extraRules: []
+        # ## Configure the ingress resource that allows you to access the haproxy installation
+        # ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+        # ##
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true # Better for CRDs
