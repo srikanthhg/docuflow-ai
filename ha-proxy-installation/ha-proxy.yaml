@@ -27,7 +27,7 @@ spec:
       values: |
         service:
           type: ClusterIP
-          
+
         replicaCount: 2
 
         resources:
@@ -61,62 +61,54 @@ spec:
             mode tcp # added
             option tcp-check # added
             default-server inter 5s fall 3 rise 2 # added
-            server postgres your-server.private.postgres.database.azure.com:5432 check
+            server postgres test-server-pgsql.private.postgres.database.azure.com:5432 check
         
-        # httpRoute:
-        #   ## @param httpRoute.enabled Enable HTTPRoute generation for HAProxy
-        #   ##
-        #   enabled: false
-        #   ## @param httpRoute.annotations Additional annotations for the HTTPRoute resource
-        #   ##
-        #   annotations: {}
-        #   ## @param httpRoute.labels Additional labels for the HTTPRoute resource
-        #   ##
-        #   labels: {}
-        #   ## @param httpRoute.parentRefs Gateways the HTTPRoute is attached to. If unspecified, it'll be attached to Gateway named 'gateway' in the same namespace.
-        #   ## e.g:
-        #   ## parentRefs:
-        #   ##   - name: my-gateway
-        #   ##     sectionName: http
-        #   ##     namespace: default
-        #   ##
-        #   parentRefs: []
-        #   ## @param httpRoute.hostnames [array] List of hostnames matching HTTP header
-        #   ##
-        #   hostnames:
-        #     - haproxy.local
-        #   ## @param httpRoute.matches [array] List of match rules applied to the HTTPRoute for the default svc backend reference
-        #   ##
-        #   matches:
-        #     - path:
-        #         type: PathPrefix
-        #         value: /
-        #   ## @param httpRoute.filters List of filter rules applied to the HTTPRoute for the default svc backend reference
-        #   ##
-        #   filters: []
-        #   ## @param httpRoute.extraRules List of extra rules applied to the HTTPRoute
-        #   ## e.g:
-        #   ## extraRules:
-        #   ##   - matches:
-        #   ##       - path:
-        #   ##           type: PathPrefix
-        #   ##           value: /login
-        #   ##     filters:
-        #   ##       - type: RequestHeaderModifier
-        #   ##         requestHeaderModifier:
-        #   ##           set:
-        #   ##             - name: My-Overwrite-Header
-        #   ##               value: this-is-the-only-value
-        #   ##           remove:
-        #   ##             - User-Agent
-        #   ##     backendRefs:
-        #   ##       - name: haproxy
-        #   ##         port: 80
-        #   ##
-        #   extraRules: []
-        # ## Configure the ingress resource that allows you to access the haproxy installation
-        # ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
-        # ##
+        httpRoute:
+          enabled: true
+          annotations: {}
+          labels: {}
+          parentRefs:
+            - name: ai-gateway-private
+              sectionName: http
+              namespace: default
+          
+          parentRefs: []
+          ## @param httpRoute.hostnames [array] List of hostnames matching HTTP header
+          ##
+          hostnames:
+            - haproxy.local
+          ## @param httpRoute.matches [array] List of match rules applied to the HTTPRoute for the default svc backend reference
+          ##
+          matches:
+            - path:
+                type: PathPrefix
+                value: /
+          ## @param httpRoute.filters List of filter rules applied to the HTTPRoute for the default svc backend reference
+          ##
+          filters: []
+          ## @param httpRoute.extraRules List of extra rules applied to the HTTPRoute
+          ## e.g:
+          ## extraRules:
+          ##   - matches:
+          ##       - path:
+          ##           type: PathPrefix
+          ##           value: /login
+          ##     filters:
+          ##       - type: RequestHeaderModifier
+          ##         requestHeaderModifier:
+          ##           set:
+          ##             - name: My-Overwrite-Header
+          ##               value: this-is-the-only-value
+          ##           remove:
+          ##             - User-Agent
+              backendRefs:
+                - name: haproxy
+                  port: 80
+          
+          extraRules: []
+        ## Configure the ingress resource that allows you to access the haproxy installation
+        ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+        ##
 
   syncPolicy:
     automated:
