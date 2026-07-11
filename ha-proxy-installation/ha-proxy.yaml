@@ -106,4 +106,4 @@ spec:
   rules:
   - backendRefs:
     - name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
-      port: 80
+      port: 8080

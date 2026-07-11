@@ -29,7 +29,7 @@ spec:
           from: Same # or All or Selector
     - name: pg-tcp-listener
       protocol: TCP
-      port: 80
+      port: 5432
       # Note: No hostname is specified because TCP is Layer 4
       allowedRoutes:
         namespaces:
