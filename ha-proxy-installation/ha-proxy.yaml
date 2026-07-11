@@ -73,36 +73,14 @@ spec:
               namespace: default
           
           parentRefs: []
-          ## @param httpRoute.hostnames [array] List of hostnames matching HTTP header
-          ##
           hostnames:
-            - haproxy.local
-          ## @param httpRoute.matches [array] List of match rules applied to the HTTPRoute for the default svc backend reference
-          ##
+            - postgres.skanth.test
           matches:
             - path:
                 type: PathPrefix
                 value: /
-          ## @param httpRoute.filters List of filter rules applied to the HTTPRoute for the default svc backend reference
-          ##
-          filters: []
-          ## @param httpRoute.extraRules List of extra rules applied to the HTTPRoute
-          ## e.g:
-          ## extraRules:
-          ##   - matches:
-          ##       - path:
-          ##           type: PathPrefix
-          ##           value: /login
-          ##     filters:
-          ##       - type: RequestHeaderModifier
-          ##         requestHeaderModifier:
-          ##           set:
-          ##             - name: My-Overwrite-Header
-          ##               value: this-is-the-only-value
-          ##           remove:
-          ##             - User-Agent
               backendRefs:
-                - name: haproxy
+                - name: ha-proxy-haproxy
                   port: 80
           
           extraRules: []
