@@ -71,8 +71,6 @@ spec:
             - name: ai-gateway-private
               sectionName: http
               namespace: default
-          
-          parentRefs: []
           hostnames:
             - postgres.skanth.test
           matches:
