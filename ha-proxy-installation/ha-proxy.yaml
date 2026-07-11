@@ -79,9 +79,9 @@ spec:
             - path:
                 type: PathPrefix
                 value: /
-              backendRefs:
-                - name: ha-proxy-haproxy
-                  port: 80
+          backendRefs:
+            - name: ha-proxy-haproxy
+              port: 80
   syncPolicy:
     automated:
       prune: true
