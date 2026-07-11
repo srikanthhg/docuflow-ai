@@ -1,3 +1,4 @@
+# https://docs.nginx.com/nginx-gateway-fabric/
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -22,7 +23,7 @@ spec:
   source:
     repoURL: oci://ghcr.io/nginx/charts/nginx-gateway-fabric
     chart: nginx-gateway-fabric
-    targetRevision: 2.6.3
+    targetRevision: 2.6.6
     helm:
       values: |
         nginxGateway:
