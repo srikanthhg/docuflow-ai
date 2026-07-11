@@ -107,3 +107,9 @@ spec:
   - backendRefs:
     - name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
       port: 8080
+
+
+
+
+                             
+kubectl delete crds authenticationfilters.gateway.nginx.org backendtlspolicies.gateway.networking.k8s.io clientsettingspolicies.gateway.nginx.org gatewayclasses.gateway.networking.k8s.io gateways.gateway.networking.k8s.io grpcroutes.gateway.networking.k8s.io httproutes.gateway.networking.k8s.io listenersets.gateway.networking.k8s.io nginxgateways.gateway.nginx.org nginxproxies.gateway.nginx.org observabilitypolicies.gateway.nginx.org proxysettingspolicies.gateway.nginx.org ratelimitpolicies.gateway.nginx.org referencegrants.gateway.networking.k8s.io snippetsfilters.gateway.nginx.org snippetspolicies.gateway.nginx.org tlsroutes.gateway.networking.k8s.io upstreamsettingspolicies.gateway.nginx.org wafpolicies.gateway.nginx.org
