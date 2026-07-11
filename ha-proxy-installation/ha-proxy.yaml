@@ -61,7 +61,7 @@ spec:
             mode tcp # added
             option tcp-check # added
             default-server inter 5s fall 3 rise 2 # added
-            server postgres test-server-pgsql.private.postgres.database.azure.com:5432 check
+            server postgres bead421c89bd.test-server-pgsql.private.postgres.database.azure.com:5432 check
         
         httpRoute:
           enabled: true
