@@ -106,9 +106,9 @@ spec:
       name: ai-gateway-private
       sectionName: pg-tcp-listener
   rules:
-  - backendRefs:
-    - name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
-      port: 8080
+    - backendRefs:
+      - name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
+        port: 8080
 
 
 
