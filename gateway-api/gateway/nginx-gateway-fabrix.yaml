@@ -51,3 +51,5 @@ spec:
       selfHeal: true
     syncOptions:
       - ServerSideApply=true # Better for CRDs
+
+#  kubectl get gatewayclass nginx -o yaml  --> it will show supported kind types
