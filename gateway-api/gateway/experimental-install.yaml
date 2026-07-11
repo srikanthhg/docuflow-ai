@@ -24118,3 +24118,5 @@
 #     storage: true
 #     subresources:
 #       status: {}
+
+# kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.0/experimental-install.yaml
