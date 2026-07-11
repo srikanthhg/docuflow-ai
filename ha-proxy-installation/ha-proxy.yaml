@@ -107,8 +107,10 @@ spec:
       sectionName: pg-tcp-listener
   rules:
     - backendRefs:
-      - name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
-        port: 8080
+        - group: ''
+          kind: Service
+          name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
+          port: 8080
 
 
 
