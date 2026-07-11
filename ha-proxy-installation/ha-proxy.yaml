@@ -80,10 +80,12 @@ spec:
                 type: PathPrefix
                 value: /
           backendRefs:
-            - name: ha-proxy-haproxy
-              port: 80
+            - group: ''
               kind: Service
-              group: ''
+              name: ha-proxy-haproxy
+              port: 80
+  
+              
   syncPolicy:
     automated:
       prune: true
