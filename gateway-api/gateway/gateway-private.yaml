@@ -21,7 +21,7 @@ spec:
 
     - name: http
       protocol: HTTP
-      port: 5432 #80
+      port: 80
       # hostname: "*.docuflow.internal"
       hostname: "*.skanth.test"
       allowedRoutes:
