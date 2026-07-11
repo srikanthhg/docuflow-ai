@@ -68,7 +68,9 @@ spec:
           annotations: {}
           labels: {}
           parentRefs:
-            - name: ai-gateway-private
+            - group: gateway.networking.k8s.io	
+              kind: Gateway
+              name: ai-gateway-private
               sectionName: http
               namespace: default
           hostnames:
