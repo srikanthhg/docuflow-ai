@@ -25,6 +25,9 @@ spec:
     targetRevision: 4.0.7
     helm:
       values: |
+        service:
+          type: ClusterIP
+          
         replicaCount: 2
 
         resources:
