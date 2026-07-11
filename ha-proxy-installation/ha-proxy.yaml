@@ -101,8 +101,10 @@ metadata:
   namespace: default
 spec:
   parentRefs:
-  - name: ai-gateway-private
-    sectionName: pg-tcp-listener
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: ai-gateway-private
+      sectionName: pg-tcp-listener
   rules:
   - backendRefs:
     - name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
