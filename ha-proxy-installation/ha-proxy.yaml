@@ -82,12 +82,6 @@ spec:
               backendRefs:
                 - name: ha-proxy-haproxy
                   port: 80
-          
-          extraRules: []
-        ## Configure the ingress resource that allows you to access the haproxy installation
-        ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
-        ##
-
   syncPolicy:
     automated:
       prune: true
