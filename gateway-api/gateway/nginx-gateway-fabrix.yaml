@@ -35,6 +35,8 @@ spec:
             targetCPUUtilizationPercentage: 50
             targetMemoryUtilizationPercentage: 50
             behavior: {}
+          gwAPIExperimentalFeatures:
+            enabled: true
         nginx:
           autoscaling:
             enabled: true
@@ -43,8 +45,7 @@ spec:
             targetCPUUtilizationPercentage: 50
             targetMemoryUtilizationPercentage: 50
             behavior: {}
-        gwAPIExperimentalFeatures:
-          enabled: true
+
   syncPolicy:
     automated:
       prune: true
