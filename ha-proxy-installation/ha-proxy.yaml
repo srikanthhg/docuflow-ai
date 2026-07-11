@@ -86,7 +86,7 @@ spec:
             - group: ''
               kind: Service
               name: ha-proxy-haproxy
-              port: 80          
+              port: 80       
   syncPolicy:
     automated:
       prune: true
