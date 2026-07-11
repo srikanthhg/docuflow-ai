@@ -1,90 +1,90 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: ha-proxy
-#   namespace: argocd
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   project: default
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: default
-#   ignoreDifferences:
-#     - group: apps
-#       kind: Deployment
-#       jsonPointers:
-#         - /spec/replicas
-#     - group: apps
-#       kind: StatefulSet
-#       jsonPointers:
-#         - /spec/replicas
-#   source:
-#     repoURL: https://charts.bitnami.com/bitnami
-#     chart: haproxy
-#     targetRevision: 4.0.7
-#     helm:
-#       values: |
-#         service:
-#           type: ClusterIP
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ha-proxy
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: StatefulSet
+      jsonPointers:
+        - /spec/replicas
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: haproxy
+    targetRevision: 4.0.7
+    helm:
+      values: |
+        service:
+          type: ClusterIP
 
-#         replicaCount: 2
+        replicaCount: 2
 
-#         resources:
-#           requests:
-#             cpu: 100m
-#             memory: 128Mi
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
 
-#           limits:
-#             cpu: 500m
-#             memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
           
-#         pdb:
-#           minAvailable: 1
+        pdb:
+          minAvailable: 1
 
-#         configuration: |
-#           global
-#             log stdout format raw local0
-#             maxconn 1024
-#           defaults
-#             mode tcp # added
-#             log global
-#             retries 3 # added
-#             timeout client 5m
-#             timeout connect 10s
-#             timeout server 5m
-#             option tcplog    # added
-#           frontend postgres
-#             bind *:5432
-#             default_backend postgres_backend
-#           backend postgres_backend
-#             mode tcp # added
-#             option tcp-check # added
-#             default-server inter 5s fall 3 rise 2 # added
-#             server postgres test-server-pgsql.private.postgres.database.azure.com:5432 check
+        configuration: |
+          global
+            log stdout format raw local0
+            maxconn 1024
+          defaults
+            mode tcp # added
+            log global
+            retries 3 # added
+            timeout client 5m
+            timeout connect 10s
+            timeout server 5m
+            option tcplog    # added
+          frontend postgres
+            bind *:5432
+            default_backend postgres_backend
+          backend postgres_backend
+            mode tcp # added
+            option tcp-check # added
+            default-server inter 5s fall 3 rise 2 # added
+            server postgres test-server-pgsql.private.postgres.database.azure.com:5432 check
         
-#         httpRoute:
-#           enabled: true
-#           annotations: {}
-#           labels: {}
-#           parentRefs:
-#             - name: ai-gateway-private
-#               sectionName: http
-#               namespace: default
+        httpRoute:
+          enabled: true
+          annotations: {}
+          labels: {}
+          parentRefs:
+            - name: ai-gateway-private
+              sectionName: http
+              namespace: default
           
-#           parentRefs: []
-#           hostnames:
-#             - postgres.skanth.test
-#           matches:
-#             - path:
-#                 type: PathPrefix
-#                 value: /
-#               backendRefs:
-#                 - name: ha-proxy-haproxy
-#                   port: 80
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - ServerSideApply=true # Better for CRDs
+          parentRefs: []
+          hostnames:
+            - postgres.skanth.test
+          matches:
+            - path:
+                type: PathPrefix
+                value: /
+              backendRefs:
+                - name: ha-proxy-haproxy
+                  port: 80
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true # Better for CRDs
