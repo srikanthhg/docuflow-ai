@@ -82,6 +82,8 @@ spec:
           backendRefs:
             - name: ha-proxy-haproxy
               port: 80
+              kind: Service
+              group: ''
   syncPolicy:
     automated:
       prune: true
