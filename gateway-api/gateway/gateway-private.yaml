@@ -33,7 +33,7 @@ spec:
       # Note: No hostname is specified because TCP is Layer 4
       allowedRoutes:
         namespaces:
-          from: Same
+          from: All
         kinds:
           - kind: TCPRoute
       # tls:
