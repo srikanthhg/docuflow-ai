@@ -70,6 +70,7 @@ spec:
             default_backend postgres_backend
           backend postgres_backend
             mode tcp # added
+            balance roundrobin
             option tcp-check
             default-server inter 5s fall 3 rise 2
             # server postgres test-server-pgsql.postgres.database.azure.com:5432 check
