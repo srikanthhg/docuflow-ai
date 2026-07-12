@@ -31,7 +31,9 @@ spec:
             protocol: TCP
 
         service:
-          type: ClusterIP
+          type: LoadBalancer
+          annotations:
+            service.beta.kubernetes.io/azure-load-balancer-internal: "true"
           ports:
             - port: 5432
               targetPort: 5432
