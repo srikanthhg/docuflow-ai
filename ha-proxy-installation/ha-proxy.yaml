@@ -69,6 +69,7 @@ spec:
           backend postgres_backend
             mode tcp # added
             option tcp-check
+            option pgsql-check user srikanth
             default-server inter 5s fall 3 rise 2
             # server postgres test-server-pgsql.postgres.database.azure.com:5432 check
             server postgres test-server-pgsql.postgres.database.azure.com:5432 ssl verify none sni str(test-server-pgsql.postgres.database.azure.com) check check-ssl check-sni str(test-server-pgsql.postgres.database.azure.com)  
