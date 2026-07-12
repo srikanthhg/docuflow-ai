@@ -45,6 +45,12 @@ spec:
             targetCPUUtilizationPercentage: 50
             targetMemoryUtilizationPercentage: 50
             behavior: {}
+          service:
+            extraPorts: # 2. Instructs Azure to open 5432 on the private LoadBalancer
+              - name: postgres-tcp
+                port: 5432
+                targetPort: 5432
+                protocol: TCP
 
   syncPolicy:
     automated:
