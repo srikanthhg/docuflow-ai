@@ -72,9 +72,9 @@ spec:
             mode tcp # added
             balance roundrobin
             # option tcp-check
-            default-server inter 5s fall 3 rise 2 check check-ssl
+            default-server inter 5s fall 3 rise 2 check
             # server postgres test-server-pgsql.postgres.database.azure.com:5432 check
-            server postgres test-server-pgsql.postgres.database.azure.com:5432 ssl verify none sni str(test-server-pgsql.postgres.database.azure.com) 
+            server postgres test-server-pgsql.postgres.database.azure.com:5432
   syncPolicy:
     automated:
       prune: true
