@@ -61,9 +61,9 @@ spec:
             mode tcp
             log global
             retries 3
-            timeout client 5m
-            timeout connect 30s
-            timeout server 5m
+            timeout client 15m
+            timeout connect 10s
+            timeout server 15m
             option tcplog
           frontend postgres
             bind *:5432
@@ -71,10 +71,10 @@ spec:
           backend postgres_backend
             mode tcp # added
             balance roundrobin
-            option tcp-check
-            default-server inter 5s fall 3 rise 2
+            # option tcp-check
+            default-server inter 5s fall 3 rise 2 check check-ssl check-sni str(test-server-pgsql.postgres.database.azure.com)  
             # server postgres test-server-pgsql.postgres.database.azure.com:5432 check
-            server postgres test-server-pgsql.postgres.database.azure.com:5432 ssl verify none sni str(test-server-pgsql.postgres.database.azure.com) check check-ssl check-sni str(test-server-pgsql.postgres.database.azure.com)  
+            server postgres test-server-pgsql.postgres.database.azure.com:5432 ssl verify none sni str(test-server-pgsql.postgres.database.azure.com) 
   syncPolicy:
     automated:
       prune: true
