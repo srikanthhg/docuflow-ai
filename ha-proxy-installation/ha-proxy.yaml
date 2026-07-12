@@ -51,21 +51,22 @@ spec:
             log stdout format raw local0
             maxconn 1024
           defaults
-            mode tcp # added
+            mode tcp
             log global
-            retries 3 # added
+            retries 3
             timeout client 5m
             timeout connect 30s
             timeout server 5m
-            option tcplog    # added
+            option tcplog
           frontend postgres
             bind *:8080
             default_backend postgres_backend
           backend postgres_backend
             mode tcp # added
-            option tcp-check # added
-            default-server inter 5s fall 3 rise 2 # added
-            server postgres test-server-pgsql.postgres.database.azure.com:5432 check     
+            option tcp-check
+            default-server inter 5s fall 3 rise 2
+            # server postgres test-server-pgsql.postgres.database.azure.com:5432 check
+            server postgres test-server-pgsql.postgres.database.azure.com:5432 ssl verify none sni str(test-server-pgsql.postgres.database.azure.com) check check-ssl check-sni str(test-server-pgsql.postgres.database.azure.com)  
   syncPolicy:
     automated:
       prune: true
