@@ -14,4 +14,4 @@ spec:
         - group: ''
           kind: Service
           name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
-          port: 8080
+          port: 5432

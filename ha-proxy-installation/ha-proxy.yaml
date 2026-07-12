@@ -25,11 +25,16 @@ spec:
     targetRevision: 4.0.7
     helm:
       values: |
+        containerPorts:
+          - name: postgres
+            containerPort: 5432
+            protocol: TCP
+
         service:
           type: ClusterIP
           ports:
-            - port: 8080
-              targetPort: 8080
+            - port: 5432
+              targetPort: 5432
               name: postgres
 
         replicaCount: 2
@@ -59,7 +64,7 @@ spec:
             timeout server 5m
             option tcplog
           frontend postgres
-            bind *:8080
+            bind *:5432
             default_backend postgres_backend
           backend postgres_backend
             mode tcp # added
