@@ -65,29 +65,7 @@ spec:
             mode tcp # added
             option tcp-check # added
             default-server inter 5s fall 3 rise 2 # added
-            server postgres test-server-pgsql.postgres.database.azure.com:5432 check
-        
-        httpRoute:
-          enabled: false
-          annotations: {}
-          labels: {}
-          parentRefs:
-            - group: gateway.networking.k8s.io	
-              kind: Gateway
-              name: ai-gateway-private
-              sectionName: http
-              namespace: default
-          hostnames:
-            - postgres.skanth.test
-          matches:
-            - path:
-                type: PathPrefix
-                value: /
-          backendRefs:
-            - group: ''
-              kind: Service
-              name: ha-proxy-haproxy
-              port: 80       
+            server postgres test-server-pgsql.postgres.database.azure.com:5432 check     
   syncPolicy:
     automated:
       prune: true
