@@ -55,7 +55,7 @@ spec:
             log global
             retries 3 # added
             timeout client 5m
-            timeout connect 10s
+            timeout connect 30s
             timeout server 5m
             option tcplog    # added
           frontend postgres
