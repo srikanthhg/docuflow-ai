@@ -25,19 +25,19 @@ spec:
     targetRevision: 4.0.7
     helm:
       values: |
-        containerPorts:
-          - name: postgres
-            containerPort: 5432
-            protocol: TCP
+        # containerPorts:
+          # - name: postgres
+            # containerPort: 5432
+            # protocol: TCP
 
-        service:
-          type: LoadBalancer
-          annotations:
-            service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-          ports:
-            - port: 5432
-              targetPort: 5432
-              name: postgres
+        # service:
+        #   type: LoadBalancer
+        #   annotations:
+        #     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+        #   ports:
+        #     - port: 5432
+        #       targetPort: 5432
+        #       name: postgres
 
         replicaCount: 2
 
@@ -66,7 +66,7 @@ spec:
             timeout server 15m
             option tcplog
           frontend postgres
-            bind *:5432
+            bind *:8080       # container-port
             default_backend postgres_backend
           backend postgres_backend
             mode tcp # added
