@@ -25,6 +25,7 @@ spec:
     targetRevision: 4.0.7
     helm:
       values: |
+      
         # containerPorts:
           # - name: postgres
             # containerPort: 5432
@@ -85,3 +86,4 @@ spec:
 
                              
 # kubectl delete crds authenticationfilters.gateway.nginx.org backendtlspolicies.gateway.networking.k8s.io clientsettingspolicies.gateway.nginx.org gatewayclasses.gateway.networking.k8s.io gateways.gateway.networking.k8s.io grpcroutes.gateway.networking.k8s.io httproutes.gateway.networking.k8s.io listenersets.gateway.networking.k8s.io nginxgateways.gateway.nginx.org nginxproxies.gateway.nginx.org observabilitypolicies.gateway.nginx.org proxysettingspolicies.gateway.nginx.org ratelimitpolicies.gateway.nginx.org referencegrants.gateway.networking.k8s.io snippetsfilters.gateway.nginx.org snippetspolicies.gateway.nginx.org tlsroutes.gateway.networking.k8s.io upstreamsettingspolicies.gateway.nginx.org wafpolicies.gateway.nginx.org
+# if Aks cluster and postgres are in different VNET's. make sure peering connetion is established and posgres DNS zone is attached to the AKS cluster VNET. Otherwise, HAProxy will not be able to resolve the postgres server hostname.
