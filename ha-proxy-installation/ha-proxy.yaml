@@ -74,7 +74,7 @@ spec:
             # option tcp-check
             default-server inter 5s fall 3 rise 2 check
             # server postgres test-server-pgsql.postgres.database.azure.com:5432 check
-            server postgres test-server-pgsql.postgres.database.azure.com:5432
+            server postgres ha-proxy-pg-server.postgres.database.azure.com:5432
   syncPolicy:
     automated:
       prune: true
