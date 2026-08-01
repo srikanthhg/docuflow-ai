@@ -20,6 +20,9 @@ spec:
       kind: Statefulset
       jsonPointers:
         - /spec/replicas
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: nginx-gateway-fabric
   source:
     repoURL: oci://ghcr.io/nginx/charts/nginx-gateway-fabric
     chart: nginx-gateway-fabric
