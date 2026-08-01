@@ -24,8 +24,8 @@ spec:
       port: 5432
       # Note: No hostname is specified because TCP is Layer 4
       allowedRoutes:
-        # namespaces:
-        #   from: All
+        namespaces:
+          from: All
         kinds:
           - kind: TCPRoute
     - name: http
