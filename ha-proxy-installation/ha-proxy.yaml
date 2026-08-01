@@ -32,7 +32,7 @@ spec:
             # protocol: TCP
 
         service:
-        #   type: ClusterIP
+          type: ClusterIP
         #   annotations:
         #     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
         #   ports:
