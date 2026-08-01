@@ -5,13 +5,13 @@ metadata:
   namespace: default
 spec:
   parentRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: ai-gateway-private
+    - name: ai-gateway-private
+      # group: gateway.networking.k8s.io
+      # kind: Gateway
       sectionName: pg-tcp-listener
   rules:
     - backendRefs:
-        - group: ''
-          kind: Service
-          name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
+        # - group: ''
+          # kind: Service
+        - name: ha-proxy-haproxy # Exact name of your HAProxy ClusterIP Service
           port: 80
